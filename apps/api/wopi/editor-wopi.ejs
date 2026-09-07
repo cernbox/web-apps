@@ -273,6 +273,10 @@ div {
             //the mention autocomplete query. Forwarding search/from/count lets the host search
             //server-side; it must then answer with isPaginated set, otherwise
             //Common.UI.ExternalUsers caches the first response and never asks again.
+            //this handler is gated only on UserMentionPostMessage, not on the requesting
+            //user's comment permission - c==="info" (avatars) is safe to answer for anyone,
+            //but c==="mention" is a searchable name+email directory and per-user
+            //comment-right checking is unenforced here.
             _postMessage('UI_RequestUsers', {
                 "c": event.data.c,
                 "id": event.data.id,
