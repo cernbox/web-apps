@@ -287,8 +287,10 @@ div {
         };
 
         var onRequestSendNotify = function (event) {
-            //event.data is Comments.js' pickEMail payload: the emails are parsed out of the
-            //comment text, so they are exactly the ones the host handed over in Action_SetUsers
+            //event.data is Comments.js' pickEMail payload, extracted via regex from the raw
+            //comment text - NOT validated against the list Action_SetUsers returned. a
+            //commenter can type any address here; hosts must validate "emails" against their
+            //own ACLs before sending, same as any other client-supplied string in this file.
             _postMessage('UI_SendNotify', {
                 "actionLink": event.data.actionLink,
                 "actionId": event.data.actionId,
